@@ -1,10 +1,20 @@
 def welcome_message ():
+
+    """
+    Print a welcome message to the user
+
+    The welcome message includes instructions on the game and how to quit the game.
+    """
+
     print('''
-    **************************************
-    **    Welcome to the Madlib Game    **
-    **                                  **
-    ** To quit at any time, type "quit" **
-    **************************************
+    *******************************************************
+    **             Welcome to the Madlib Game            **
+    **                                                   **
+    **      Input the type of speech when prompted.      **
+    **      For example (Adjective, Noun, Verb etc).     **
+    **                                                   **
+    **          To quit at any time, type "quit"         **
+    *******************************************************
 
     ''')
     
@@ -14,6 +24,17 @@ stormy_path = './assets/dark_and_stormy_night_template.txt'
 videogame_path = './assets/make_me_a_video_game_template.txt'
 
 def read_template(file_path):
+
+    """
+    Read and return the content of a file
+
+    file_path (str): The path to the file.
+
+    returns: The content of the file.
+    
+    raises: FileNotFoundError: If the file is not found.
+    """
+
     try:
         with open(file_path, 'r') as file:
             return file.read().strip()
@@ -22,6 +43,15 @@ def read_template(file_path):
 
 
 def parse_template(template):
+
+    """
+    Parse the template and extract parts of speech.
+
+    split_template: The Madlib template.
+
+    tuple: A tuple containing the stripped template and a tuple of parts of speech.
+    """
+
     parts_of_speech = []
     split_template = template.split('{')
 
@@ -36,6 +66,16 @@ def parse_template(template):
 
 
 def merge(stripped_template, parts_of_speech):
+
+    """
+    Merge the stripped Madlib template with user input.
+
+    stripped_template (str): The stripped Madlib template.
+    parts_of_speech (tuple): Tuple containing parts of speech.
+
+    Returns: The final merged Madlib.
+    """
+
     result = stripped_template.format(*parts_of_speech)
     return result
 
@@ -43,6 +83,16 @@ def merge(stripped_template, parts_of_speech):
 
 
 def madlib_generator():
+
+    """
+    Generate a Madlib using a template and user input.
+
+    It reads a template from a file, parses it, prompts the user for input,
+    and merges the input with the template to create the final Madlib.
+
+    The user can quit the Madlib game by entering "quit" at any time.
+    
+    """
 
     template = read_template(videogame_path)
     stripped_template, parts_of_speech = parse_template(template)

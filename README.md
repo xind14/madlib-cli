@@ -4,7 +4,7 @@
 
 ## Links and Resources
 
-- chatGPT on how to use tuple, .format, .strip, and what raising exceptions meant
+- chatGPT on how to use tuple, .format, .strip, and what raising exceptions meant and correct docstring format and content
 - [Unpacking Arrays](https://realpython.com/python-kwargs-and-args/#unpacking-with-the-asterisk-operators)
 
 
