@@ -7,6 +7,16 @@ def welcome_message ():
     
 welcome_message()
 
+videogame_path = 'assets/make_me_a_video_game_template.txt'
+stormy_path = 'assets/dark_and_stormy_night_template.txt'
+
+def read_template(file_path):
+    try:
+        with open(file_path, 'r') as file:
+            return file.read().strip()
+    except FileNotFoundError:
+          raise FileNotFoundError
+
 
 
 
