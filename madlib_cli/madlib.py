@@ -1,3 +1,5 @@
+print("Current working directory:", os.getcwd())
+
 def welcome_message ():
     print('''
 
@@ -8,7 +10,7 @@ def welcome_message ():
 welcome_message()
 
 videogame_path = 'assets/make_me_a_video_game_template.txt'
-stormy_path = 'assets/dark_and_stormy_night_template.txt'
+# stormy_path = './assets/dark_and_stormy_night_template.txt'
 
 def read_template(file_path):
     try:
@@ -40,16 +42,14 @@ def parse_template(template):
     return stripped_template, tuple(parts_of_speech)
 
 
-template_example = "It was a {Adjective} and {Adjective} {Noun}."
-parse_template(template_example)
+# template_example = "It was a {Adjective} and {Adjective} {Noun}."
+# parse_template(template_example)
 
-
-
-
-
-
-
-# def test_merge():
+def merge(stripped_template, parts_of_speech):
+    result = stripped_template.format(*parts_of_speech)
+    return result
 
 
 # Create and test a merge function that takes in a “bare” template and a list of user entered language parts, and returns a string with the language parts inserted into the template.
+
+
