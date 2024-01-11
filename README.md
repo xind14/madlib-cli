@@ -5,10 +5,12 @@
 ## Links and Resources
 
 - chatGPT on how to use tuple, .format, .strip, and what raising exceptions meant
+- [Unpacking Arrays](https://realpython.com/python-kwargs-and-args/#unpacking-with-the-asterisk-operators)
+
 
 ## Overview - madlib-cli
 
-In this lab assignment you will be creating a command line application which takes advantage of Python’s built in capabilities for reading and writing files.
+In this lab assignment you will be creating a command line application which takes advantage of Python’s built in capabilities for reading and writing files to create a Madlib game
 
 
 

@@ -1,7 +1,10 @@
 def welcome_message ():
     print('''
-
-    Welcome to the Madlib game!
+    **************************************
+    **    Welcome to the Madlib Game    **
+    **                                  **
+    ** To quit at any time, type "quit" **
+    **************************************
 
     ''')
     
@@ -46,6 +49,9 @@ def madlib_generator():
     user_input = []
     for word in parts_of_speech:
         word_input = input(f"\nEnter {word} > ")
+        if word_input.lower() == "quit":
+            print("\nYou've exited out of the Madlib Game.\n")
+            return
         user_input.append(word_input)
     final_madlib = merge(stripped_template, user_input)
     print(f"\n\n\nHere is you completed Madlib: \n\n{final_madlib}\n")
