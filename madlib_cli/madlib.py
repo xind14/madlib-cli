@@ -1,67 +1,112 @@
+def welcome_message ():
+
+    """
+    Print a welcome message to the user
+
+    The welcome message includes instructions on the game and how to quit the game.
+    """
+
+    print('''
+    *******************************************************
+    **             Welcome to the Madlib Game            **
+    **                                                   **
+    **      Input the type of speech when prompted.      **
+    **      For example (Adjective, Noun, Verb etc).     **
+    **                                                   **
+    **          To quit at any time, type "quit"         **
+    *******************************************************
+
+    ''')
+    
+welcome_message()
+
+stormy_path = './assets/dark_and_stormy_night_template.txt'
+videogame_path = './assets/make_me_a_video_game_template.txt'
+
+def read_template(file_path):
+
+    """
+    Read and return the content of a file
+
+    file_path (str): The path to the file.
+
+    returns: The content of the file.
+    
+    raises: FileNotFoundError: If the file is not found.
+    """
+
+    try:
+        with open(file_path, 'r') as file:
+            return file.read().strip()
+    except FileNotFoundError:
+          raise FileNotFoundError
+
+
+def parse_template(template):
+
+    """
+    Parse the template and extract parts of speech.
+
+    split_template: The Madlib template.
+
+    tuple: A tuple containing the stripped template and a tuple of parts of speech.
+    """
+
+    parts_of_speech = []
+    split_template = template.split('{')
+
+    for i in range(1, len(split_template)):
+        singular_speech, remaining_char = split_template[i].split('}', 1)
+        parts_of_speech.append(singular_speech)
+        split_template[i] = remaining_char
+
+    stripped_template = '{}'.join(split_template)
+
+    return stripped_template, tuple(parts_of_speech)
+
+
+def merge(stripped_template, parts_of_speech):
+
+    """
+    Merge the stripped Madlib template with user input.
+
+    stripped_template (str): The stripped Madlib template.
+    parts_of_speech (tuple): Tuple containing parts of speech.
+
+    Returns: The final merged Madlib.
+    """
+
+    result = stripped_template.format(*parts_of_speech)
+    return result
 
 
 
 
+def madlib_generator():
 
+    """
+    Generate a Madlib using a template and user input.
 
+    It reads a template from a file, parses it, prompts the user for input,
+    and merges the input with the template to create the final Madlib.
 
+    The user can quit the Madlib game by entering "quit" at any time.
+    
+    """
 
+    template = read_template(videogame_path)
+    stripped_template, parts_of_speech = parse_template(template)
+    user_input = []
+    for word in parts_of_speech:
+        word_input = input(f"\nEnter {word} > ")
+        if word_input.lower() == "quit":
+            print("\nYou've exited out of the Madlib Game.\n")
+            return
+        user_input.append(word_input)
+    final_madlib = merge(stripped_template, user_input)
+    print(f"\n\n\nHere is you completed Madlib: \n\n{final_madlib}\n")
 
+    with open ('assets/final_madlib.txt', 'w') as file:
+        file.write(final_madlib)
 
-- Print a welcome message to the user, explaining the Madlib process and command line interactions
-- Read a template Madlib file (Example), and parse that file into usable parts.
-- Prompt the user to submit a series of words to fit each of the required components of the Madlib template.
-- With the collected user inputs, populate the template such that each provided input is placed into the correct position within the template.
-- After the resulting Madlib has been completed, provide the completed response back to the user in the command line.
-- Write the completed text (Example)to a new file on your file system (in the repo).
-Note: A smaller example file is included as well which can be handy when developing/testing.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def read_template():
-
-Create and test a read_template function that takes in a path to text file and returns a stripped string of the file’s contents.
-read_template should raise a FileNotFoundError if path is invalid.
-
-
-@pytest.mark.skip("pending")
-def test_read_template_raises_exception_with_bad_path():
-
-    with pytest.raises(FileNotFoundError):
-        path = "missing.txt"
-        read_template(path)
-
-def test_parse_template():
-    actual_stripped, actual_parts = parse_template(
-        "It was a {Adjective} and {Adjective} {Noun}."
-    )
-    expected_stripped = "It was a {} and {} {}."
-    expected_parts = ("Adjective", "Adjective", "Noun")
-
-    assert actual_stripped == expected_stripped
-    assert actual_parts == expected_parts
-
-    Create and test a parse_template function that takes in a template string and returns a string with language parts removed and a separate tuple of those language parts.
-
-
-
-@pytest.mark.skip("pending")
-def test_merge():
-    actual = merge("It was a {} and {} {}.", ("dark", "stormy", "night"))
-    expected = "It was a dark and stormy night."
-    assert actual == expected
-
-Create and test a merge function that takes in a “bare” template and a list of user entered language parts, and returns a string with the language parts inserted into the template.
+madlib_generator()
